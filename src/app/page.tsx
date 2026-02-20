@@ -5,6 +5,7 @@ import Header from '@/components/Header';
 import CategoryBar from '@/components/CategoryBar';
 import ProductCard from '@/components/ProductCard';
 import CartSidebar, { CartItem } from '@/components/CartSidebar';
+import Footer from '@/components/Footer';
 import { MENU, Product } from '@/lib/data';
 import { t as translate, type Language } from '@/lib/i18n';
 
@@ -69,48 +70,51 @@ export default function Home() {
         });
 
   return (
-    <main>
-      <Header
-        cartCount={cartCount}
-        onToggleCart={() => setIsCartOpen(!isCartOpen)}
-        searchValue={searchValue}
-        onSearchChange={setSearchValue}
-        language={language}
-        onToggleLanguage={() =>
-          setLanguage((prev) => (prev === 'en' ? 'ar' : 'en'))
-        }
-        t={t}
-      />
-      <CategoryBar
-        activeCategory={activeCategory}
-        onSelectCategory={handleCategorySelect}
-        t={t}
-      />
-      <div className="page-body">
-        <div className="main-content">
-          <h2 className="section-title">
-            {t(`categoryTitle.${activeCategory}`)}
-          </h2>
-          <div className="product-grid">
-            {filteredProducts.map((item, i) => (
-              <ProductCard key={i} product={item} onAdd={addToCart} />
-            ))}
-          </div>
-          {normalizedQuery.length > 0 && filteredProducts.length === 0 && (
-            <div style={{ marginTop: 14, color: 'var(--g)', fontSize: 13 }}>
-              {t('search.noResultsPrefix')} “{searchValue.trim()}”.
-            </div>
-          )}
-        </div>
-
-        <CartSidebar
-          cart={cart}
-          onUpdateQty={updateQty}
-          isOpen={isCartOpen}
-          onClose={() => setIsCartOpen(false)}
+    <>
+      <main>
+        <Header
+          cartCount={cartCount}
+          onToggleCart={() => setIsCartOpen(!isCartOpen)}
+          searchValue={searchValue}
+          onSearchChange={setSearchValue}
+          language={language}
+          onToggleLanguage={() =>
+            setLanguage((prev) => (prev === 'en' ? 'ar' : 'en'))
+          }
           t={t}
         />
-      </div>
-    </main>
+        <CategoryBar
+          activeCategory={activeCategory}
+          onSelectCategory={handleCategorySelect}
+          t={t}
+        />
+        <div className="page-body">
+          <div className="main-content">
+            <h2 className="section-title">
+              {t(`categoryTitle.${activeCategory}`)}
+            </h2>
+            <div className="product-grid">
+              {filteredProducts.map((item, i) => (
+                <ProductCard key={i} product={item} onAdd={addToCart} />
+              ))}
+            </div>
+            {normalizedQuery.length > 0 && filteredProducts.length === 0 && (
+              <div style={{ marginTop: 14, color: 'var(--g)', fontSize: 13 }}>
+                {t('search.noResultsPrefix')} “{searchValue.trim()}”.
+              </div>
+            )}
+          </div>
+
+          <CartSidebar
+            cart={cart}
+            onUpdateQty={updateQty}
+            isOpen={isCartOpen}
+            onClose={() => setIsCartOpen(false)}
+            t={t}
+          />
+        </div>
+      </main>
+      <Footer />
+    </>
   );
 }
