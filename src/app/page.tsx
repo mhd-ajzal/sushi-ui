@@ -24,7 +24,7 @@ export default function Home() {
       if (existing) {
         return {
           ...prev,
-          [product.name]: { ...existing, qty: existing.qty + 1 },
+          [product.name]: { ...existing, ...product, qty: existing.qty + 1 },
         };
       }
       return {

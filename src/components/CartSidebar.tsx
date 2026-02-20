@@ -49,7 +49,15 @@ export default function CartSidebar({ cart, onUpdateQty, isOpen, onClose }: Cart
                     <div className="cart-items">
                         {items.map(([name, item]) => (
                             <div key={name} className="cart-item">
-                                <div className="cart-item-emoji">{item.emoji}</div>
+                                <div className="cart-item-emoji">
+                                    {item.imgSrc ? (
+                                        <img src={item.imgSrc} alt={item.name} />
+                                    ) : (
+                                        <span role="img" aria-label={item.name}>
+                                            {item.emoji}
+                                        </span>
+                                    )}
+                                </div>
                                 <div style={{ flex: 1, minWidth: 0 }}>
                                     <div className="cart-item-name">{name}</div>
                                     <div className="cart-item-price">AED {(item.price * item.qty).toFixed(0)}</div>
