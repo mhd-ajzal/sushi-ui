@@ -39,7 +39,6 @@ export default function Home() {
         [product.name]: { ...product, qty: 1 },
       };
     });
-    setIsCartOpen(true);
   };
 
   const updateQty = (name: string, delta: number) => {
@@ -105,13 +104,15 @@ export default function Home() {
             )}
           </div>
 
-          <CartSidebar
-            cart={cart}
-            onUpdateQty={updateQty}
-            isOpen={isCartOpen}
-            onClose={() => setIsCartOpen(false)}
-            t={t}
-          />
+          {isCartOpen && (
+            <CartSidebar
+              cart={cart}
+              onUpdateQty={updateQty}
+              isOpen={isCartOpen}
+              onClose={() => setIsCartOpen(false)}
+              t={t}
+            />
+          )}
         </div>
       </main>
       <Footer />
