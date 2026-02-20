@@ -17,7 +17,7 @@ export const MENU: { [key: string]: Product[] } = {
         { name: "Mini Salmon Lover 12 Pcs", desc: "4 Pcs Salmon Nigiri, 4 Pcs Salmon Sashimi & 4 Pcs Salmon Hoso Maki", price: 99, emoji: "🐟", tag: "Value" }
     ],
     lovers: [
-        { name: "Dear Box 16 Pcs", desc: "4 Pcs Crazy Shrimp Roll, 4 Pcs Seared Salmon Roll, 4 Pcs Oman Chips Roll & 4 Pcs California Roll", price: 89, emoji: "🍣" },
+        { name: "Dear Box 16 Pcs", desc: "4 Pcs Crazy Shrimp Roll, 4 Pcs Seared Salmon Roll, 4 Pcs Oman Chips Roll & 4 Pcs California Roll", price: 89, emoji: "🍣", imgSrc: "/images/lovers-box.png" },
         { name: "Happy Box 16 Pcs", desc: "4 Pcs Eel Dragon Roll, 4 Pcs Spicy Tuna Dragon Roll, 4 Pcs Arigato Roll & 4 Pcs Salmon Nigiri", price: 99, emoji: "🍣" },
         { name: "Mini Salmon Lover 12 Pcs", desc: "4 Pcs Salmon Nigiri, 4 Pcs Salmon Sashimi & 4 Pcs Salmon Hoso Maki", price: 99, emoji: "🐟" },
         { name: "Raw Mixed Platter 24 Pcs", desc: "8 Pcs New Phila Roll, 4 Pcs Tiger Phila Roll, 4 Pcs California Salmon Dream Roll, 4 Pcs Salmon Nigiri, 2 Pcs Tuna Nigiri & 2 Pcs Ebi Nigiri", price: 139, emoji: "🍱" },

@@ -46,7 +46,7 @@ export default function ProductCard({ product, onAdd }: ProductCardProps) {
                 </button>
                 {product.tag && <div className="pcard-price-tag">{product.tag}</div>}
                 {product.vip && <div className="vip-badge">VIP</div>}
-                <button className="pcard-customize">Customize →</button>
+
             </div>
 
             <div className="pcard-bottom">
