@@ -11,11 +11,13 @@ export default function Home() {
   const [activeCategory, setActiveCategory] = useState('special');
   const [cart, setCart] = useState<{ [key: string]: CartItem }>({});
   const [isCartOpen, setIsCartOpen] = useState(false);
+  const [searchValue, setSearchValue] = useState('');
 
   const cartCount = Object.values(cart).reduce((a, b) => a + b.qty, 0);
 
   const handleCategorySelect = (id: string) => {
     setActiveCategory(id);
+    setSearchValue('');
   };
 
   const addToCart = (product: Product) => {
@@ -62,9 +64,24 @@ export default function Home() {
     temaki: 'Temaki Handroll Sushi',
   };
 
+  const normalizedQuery = searchValue.trim().toLowerCase();
+  const products = MENU[activeCategory] ?? [];
+  const filteredProducts =
+    normalizedQuery.length === 0
+      ? products
+      : products.filter((p) => {
+          const haystack = `${p.name} ${p.desc}`.toLowerCase();
+          return haystack.includes(normalizedQuery);
+        });
+
   return (
     <main>
-      <Header cartCount={cartCount} onToggleCart={() => setIsCartOpen(!isCartOpen)} />
+      <Header
+        cartCount={cartCount}
+        onToggleCart={() => setIsCartOpen(!isCartOpen)}
+        searchValue={searchValue}
+        onSearchChange={setSearchValue}
+      />
       <CategoryBar
         activeCategory={activeCategory}
         onSelectCategory={handleCategorySelect}
@@ -73,10 +90,15 @@ export default function Home() {
         <div className="main-content">
           <h2 className="section-title">{categoryTitles[activeCategory]}</h2>
           <div className="product-grid">
-            {MENU[activeCategory]?.map((item, i) => (
+            {filteredProducts.map((item, i) => (
               <ProductCard key={i} product={item} onAdd={addToCart} />
             ))}
           </div>
+          {normalizedQuery.length > 0 && filteredProducts.length === 0 && (
+            <div style={{ marginTop: 14, color: 'var(--g)', fontSize: 13 }}>
+              No items found for “{searchValue.trim()}”.
+            </div>
+          )}
         </div>
 
         <CartSidebar

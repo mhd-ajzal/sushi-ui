@@ -6,9 +6,11 @@ import LocationModal from './LocationModal';
 interface HeaderProps {
     cartCount: number;
     onToggleCart: () => void;
+    searchValue: string;
+    onSearchChange: (value: string) => void;
 }
 
-export default function Header({ cartCount, onToggleCart }: HeaderProps) {
+export default function Header({ cartCount, onToggleCart, searchValue, onSearchChange }: HeaderProps) {
     const [activeMode, setActiveMode] = useState('Delivery');
     const [showLocationModal, setShowLocationModal] = useState(false);
 
@@ -68,7 +70,12 @@ export default function Header({ cartCount, onToggleCart }: HeaderProps) {
             <div className="topbar-spacer"></div>
 
             <div className="search-wrap">
-                <input type="text" placeholder="Search menu..." />
+                <input
+                    type="text"
+                    placeholder="Search menu..."
+                    value={searchValue}
+                    onChange={(e) => onSearchChange(e.target.value)}
+                />
                 <span className="si">🔍</span>
             </div>
 
