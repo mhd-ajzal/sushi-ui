@@ -6,14 +6,18 @@ import CategoryBar from '@/components/CategoryBar';
 import ProductCard from '@/components/ProductCard';
 import CartSidebar, { CartItem } from '@/components/CartSidebar';
 import { MENU, Product } from '@/lib/data';
+import { t as translate, type Language } from '@/lib/i18n';
 
 export default function Home() {
   const [activeCategory, setActiveCategory] = useState('special');
   const [cart, setCart] = useState<{ [key: string]: CartItem }>({});
   const [isCartOpen, setIsCartOpen] = useState(false);
   const [searchValue, setSearchValue] = useState('');
+  const [language, setLanguage] = useState<Language>('en');
 
   const cartCount = Object.values(cart).reduce((a, b) => a + b.qty, 0);
+
+  const t = (key: string) => translate(language, key);
 
   const handleCategorySelect = (id: string) => {
     setActiveCategory(id);
@@ -54,16 +58,6 @@ export default function Home() {
     });
   };
 
-  const categoryTitles: { [key: string]: string } = {
-    special: 'Special Offers',
-    lovers: 'Signature & Lovers Box',
-    sakura: 'Sakura Combos',
-    cooked: 'Cooked Box',
-    vip: 'Fusion VIP Moriwase',
-    maki: 'Hoso Maki',
-    temaki: 'Temaki Handroll Sushi',
-  };
-
   const normalizedQuery = searchValue.trim().toLowerCase();
   const products = MENU[activeCategory] ?? [];
   const filteredProducts =
@@ -81,14 +75,22 @@ export default function Home() {
         onToggleCart={() => setIsCartOpen(!isCartOpen)}
         searchValue={searchValue}
         onSearchChange={setSearchValue}
+        language={language}
+        onToggleLanguage={() =>
+          setLanguage((prev) => (prev === 'en' ? 'ar' : 'en'))
+        }
+        t={t}
       />
       <CategoryBar
         activeCategory={activeCategory}
         onSelectCategory={handleCategorySelect}
+        t={t}
       />
       <div className="page-body">
         <div className="main-content">
-          <h2 className="section-title">{categoryTitles[activeCategory]}</h2>
+          <h2 className="section-title">
+            {t(`categoryTitle.${activeCategory}`)}
+          </h2>
           <div className="product-grid">
             {filteredProducts.map((item, i) => (
               <ProductCard key={i} product={item} onAdd={addToCart} />
@@ -96,7 +98,7 @@ export default function Home() {
           </div>
           {normalizedQuery.length > 0 && filteredProducts.length === 0 && (
             <div style={{ marginTop: 14, color: 'var(--g)', fontSize: 13 }}>
-              No items found for “{searchValue.trim()}”.
+              {t('search.noResultsPrefix')} “{searchValue.trim()}”.
             </div>
           )}
         </div>
@@ -106,6 +108,7 @@ export default function Home() {
           onUpdateQty={updateQty}
           isOpen={isCartOpen}
           onClose={() => setIsCartOpen(false)}
+          t={t}
         />
       </div>
     </main>

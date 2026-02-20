@@ -5,10 +5,11 @@ import { CATEGORIES } from '@/lib/data';
 
 interface CategoryBarProps {
     activeCategory: string;
-    onSelectCategory: (id: string, name: string) => void;
+    onSelectCategory: (id: string) => void;
+    t: (key: string) => string;
 }
 
-export default function CategoryBar({ activeCategory, onSelectCategory }: CategoryBarProps) {
+export default function CategoryBar({ activeCategory, onSelectCategory, t }: CategoryBarProps) {
     return (
         <div className="catbar">
             <div className="catbar-inner">
@@ -16,10 +17,10 @@ export default function CategoryBar({ activeCategory, onSelectCategory }: Catego
                     <div
                         key={cat.id}
                         className={`cat-item ${activeCategory === cat.id ? 'active' : ''}`}
-                        onClick={() => onSelectCategory(cat.id, cat.name)}
+                        onClick={() => onSelectCategory(cat.id)}
                     >
                         <div className="cat-img">{cat.icon}</div>
-                        <span className="cat-name">{cat.name}</span>
+                        <span className="cat-name">{t(`category.${cat.id}`)}</span>
                     </div>
                 ))}
             </div>

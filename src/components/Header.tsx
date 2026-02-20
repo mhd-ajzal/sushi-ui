@@ -2,21 +2,55 @@
 
 import React, { useState } from 'react';
 import LocationModal from './LocationModal';
+import type { Language } from '@/lib/i18n';
 
 interface HeaderProps {
     cartCount: number;
     onToggleCart: () => void;
     searchValue: string;
     onSearchChange: (value: string) => void;
+    language: Language;
+    onToggleLanguage: () => void;
+    t: (key: string) => string;
 }
 
-export default function Header({ cartCount, onToggleCart, searchValue, onSearchChange }: HeaderProps) {
-    const [activeMode, setActiveMode] = useState('Delivery');
+export default function Header({
+    cartCount,
+    onToggleCart,
+    searchValue,
+    onSearchChange,
+    language,
+    onToggleLanguage,
+    t,
+}: HeaderProps) {
+    const [activeMode, setActiveMode] = useState<'delivery' | 'pickup' | 'dineIn'>('delivery');
     const [showLocationModal, setShowLocationModal] = useState(false);
 
-    const handleModeClick = (mode: string) => {
+    const handleModeClick = (mode: 'delivery' | 'pickup' | 'dineIn') => {
         setActiveMode(mode);
         setShowLocationModal(true);
+    };
+
+    const renderModeTabs = (className: string) => {
+        const modes: { key: 'delivery' | 'pickup' | 'dineIn'; icon: string }[] = [
+            { key: 'delivery', icon: '🏠' },
+            { key: 'pickup', icon: '🛍️' },
+            { key: 'dineIn', icon: '🍽️' },
+        ];
+
+        return (
+            <div className={className}>
+                {modes.map((mode) => (
+                    <button
+                        key={mode.key}
+                        className={`mode-tab ${activeMode === mode.key ? 'active' : ''}`}
+                        onClick={() => handleModeClick(mode.key)}
+                    >
+                        {mode.icon} {t(`header.mode.${mode.key}`)}
+                    </button>
+                ))}
+            </div>
+        );
     };
 
     return (
@@ -27,52 +61,19 @@ export default function Header({ cartCount, onToggleCart, searchValue, onSearchC
                 <span></span>
             </div>
 
-            {/* Sushi Fusion Circular Badge Logo */}
             <div className="logo-wrap">
-                <svg viewBox="0 0 100 100" xmlns="http://www.w3.org/2000/svg">
-                    <circle cx="50" cy="50" r="48" fill="#FF6A0C" />
-                    <circle cx="50" cy="50" r="48" fill="none" stroke="white" strokeWidth="2.5" />
-                    <circle cx="50" cy="50" r="38" fill="white" />
-                    <circle cx="50" cy="50" r="38" fill="none" stroke="#FF6A0C" strokeWidth="2" />
-                    <circle cx="50" cy="50" r="30" fill="none" stroke="#FF6A0C" strokeWidth="1.5" />
-                    <ellipse cx="43" cy="52" rx="11" ry="7" fill="#FF6A0C" />
-                    <ellipse cx="43" cy="49" rx="11" ry="7" fill="#FF6A0C" />
-                    <ellipse cx="43" cy="49" rx="7.5" ry="4.5" fill="white" />
-                    <ellipse cx="43" cy="48" rx="4.5" ry="3" fill="#FF6A0C" />
-                    <ellipse cx="57" cy="54" rx="10" ry="6" fill="white" stroke="#FF6A0C" strokeWidth="1.5" />
-                    <path d="M49,53 Q54,48 65,51" stroke="#FF6A0C" strokeWidth="1" fill="none" strokeDasharray="2,1.5" />
-                    <path id="ta" d="M 16,50 A 34,34 0 0,1 84,50" fill="none" />
-                    <text fontFamily="Arial,sans-serif" fontWeight="800" fontSize="8.5" fill="white" letterSpacing="2.8">
-                        <textPath href="#ta" startOffset="7%">SUSHI FUSION</textPath>
-                    </text>
-                    <path id="ba" d="M 16,50 A 34,34 0 0,0 84,50" fill="none" />
-                    <text fontFamily="Arial,sans-serif" fontWeight="800" fontSize="8.5" fill="#FF6A0C" letterSpacing="2.8">
-                        <textPath href="#ba" startOffset="7%">SUSHI FUSION</textPath>
-                    </text>
-                </svg>
+                <img src="/sushi-fusion-logo.png" alt="Sushi Fusion" />
             </div>
 
-            <div className="mode-tabs">
-                {['Delivery', 'Pickup', 'Dine-In'].map((mode) => (
-                    <button
-                        key={mode}
-                        className={`mode-tab ${activeMode === mode ? 'active' : ''}`}
-                        onClick={() => handleModeClick(mode)}
-                    >
-                        {mode === 'Delivery' && '🏠'}
-                        {mode === 'Pickup' && '🛍️'}
-                        {mode === 'Dine-In' && '🍽️'} {mode}
-                    </button>
-                ))}
-            </div>
+            {renderModeTabs('mode-tabs')}
 
-            <button className="location-btn">📍 Select Location →</button>
+            <button className="location-btn">📍 {t('header.selectLocation')}</button>
             <div className="topbar-spacer"></div>
 
             <div className="search-wrap">
                 <input
                     type="text"
-                    placeholder="Search menu..."
+                    placeholder={t('header.searchPlaceholder')}
                     value={searchValue}
                     onChange={(e) => onSearchChange(e.target.value)}
                 />
@@ -82,13 +83,18 @@ export default function Header({ cartCount, onToggleCart, searchValue, onSearchC
             <button className="cart-btn" onClick={onToggleCart}>
                 🛒<span className="cart-badge" id="cart-count">{cartCount}</span>
             </button>
-            <button className="lang-btn">عربي</button>
-            <button className="login-btn">LOGIN</button>
+            <button className="lang-btn" onClick={onToggleLanguage}>
+                {language === 'en' ? 'عربي' : 'EN'}
+            </button>
+            <button className="login-btn">{t('header.login')}</button>
+
+            {renderModeTabs('mode-tabs-mobile')}
 
             <LocationModal
                 isOpen={showLocationModal}
                 onClose={() => setShowLocationModal(false)}
-                mode={activeMode}
+                mode={t(`header.mode.${activeMode}`)}
+                t={t}
                 onProceed={(data) => {
                     console.log('Location Data:', data);
                     setShowLocationModal(false);

@@ -12,15 +12,16 @@ interface CartSidebarProps {
     onUpdateQty: (name: string, delta: number) => void;
     isOpen: boolean;
     onClose: () => void;
+    t: (key: string) => string;
 }
 
-export default function CartSidebar({ cart, onUpdateQty, isOpen, onClose }: CartSidebarProps) {
+export default function CartSidebar({ cart, onUpdateQty, isOpen, onClose, t }: CartSidebarProps) {
     const items = Object.entries(cart).filter(([, v]) => v.qty > 0);
     const total = items.reduce((a, [, v]) => a + v.price * v.qty, 0);
 
     const renderHeader = () => (
         <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', marginBottom: 14, borderBottom: '1px solid var(--b)', paddingBottom: 10 }}>
-            <div style={{ fontSize: 15, fontWeight: 800 }}>🛒 Your Order</div>
+            <div style={{ fontSize: 15, fontWeight: 800 }}>🛒 {t('cart.title')}</div>
             <button onClick={onClose} className="cart-close-btn">×</button>
         </div>
     );
@@ -32,8 +33,8 @@ export default function CartSidebar({ cart, onUpdateQty, isOpen, onClose }: Cart
                     {renderHeader()}
                     <div className="cart-empty">
                         <div className="cart-empty-icon">🛒</div>
-                        <h3>Your Cart is Empty</h3>
-                        <p>Please add some items from the menu.</p>
+                        <h3>{t('cart.emptyTitle')}</h3>
+                        <p>{t('cart.emptyBody')}</p>
                     </div>
                 </div>
                 {isOpen && <div className="cart-overlay" onClick={onClose}></div>}
@@ -76,18 +77,18 @@ export default function CartSidebar({ cart, onUpdateQty, isOpen, onClose }: Cart
                     </div>
                     <div className="cart-summary">
                         <div className="cart-row">
-                            <span>Subtotal</span>
+                            <span>{t('cart.subtotal')}</span>
                             <span>AED {total}</span>
                         </div>
                         <div className="cart-row">
-                            <span>Delivery</span>
-                            <span style={{ color: '#22c55e', fontWeight: 600 }}>FREE</span>
+                            <span>{t('cart.delivery')}</span>
+                            <span style={{ color: '#22c55e', fontWeight: 600 }}>{t('cart.deliveryFree')}</span>
                         </div>
                         <div className="cart-row total">
-                            <span>Total</span>
+                            <span>{t('cart.total')}</span>
                             <span style={{ color: 'var(--o)' }}>AED {total}</span>
                         </div>
-                        <button className="checkout-btn">Proceed to Checkout →</button>
+                        <button className="checkout-btn">{t('cart.checkout')}</button>
                     </div>
                 </div>
             </div>
