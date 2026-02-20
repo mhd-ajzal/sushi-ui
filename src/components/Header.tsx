@@ -1,9 +1,21 @@
 'use client';
 
 import React, { useState } from 'react';
+import LocationModal from './LocationModal';
 
-export default function Header({ cartCount }: { cartCount: number }) {
+interface HeaderProps {
+    cartCount: number;
+    onToggleCart: () => void;
+}
+
+export default function Header({ cartCount, onToggleCart }: HeaderProps) {
     const [activeMode, setActiveMode] = useState('Delivery');
+    const [showLocationModal, setShowLocationModal] = useState(false);
+
+    const handleModeClick = (mode: string) => {
+        setActiveMode(mode);
+        setShowLocationModal(true);
+    };
 
     return (
         <header className="topbar">
@@ -43,7 +55,7 @@ export default function Header({ cartCount }: { cartCount: number }) {
                     <button
                         key={mode}
                         className={`mode-tab ${activeMode === mode ? 'active' : ''}`}
-                        onClick={() => setActiveMode(mode)}
+                        onClick={() => handleModeClick(mode)}
                     >
                         {mode === 'Delivery' && '🏠'}
                         {mode === 'Pickup' && '🛍️'}
@@ -60,11 +72,21 @@ export default function Header({ cartCount }: { cartCount: number }) {
                 <span className="si">🔍</span>
             </div>
 
-            <button className="cart-btn">
+            <button className="cart-btn" onClick={onToggleCart}>
                 🛒<span className="cart-badge" id="cart-count">{cartCount}</span>
             </button>
             <button className="lang-btn">عربي</button>
             <button className="login-btn">LOGIN</button>
+
+            <LocationModal
+                isOpen={showLocationModal}
+                onClose={() => setShowLocationModal(false)}
+                mode={activeMode}
+                onProceed={(data) => {
+                    console.log('Location Data:', data);
+                    setShowLocationModal(false);
+                }}
+            />
         </header>
     );
 }

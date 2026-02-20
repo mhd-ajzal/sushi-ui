@@ -10,6 +10,7 @@ import { MENU, Product } from '@/lib/data';
 export default function Home() {
   const [activeCategory, setActiveCategory] = useState('special');
   const [cart, setCart] = useState<{ [key: string]: CartItem }>({});
+  const [isCartOpen, setIsCartOpen] = useState(false);
 
   const cartCount = Object.values(cart).reduce((a, b) => a + b.qty, 0);
 
@@ -31,6 +32,7 @@ export default function Home() {
         [product.name]: { ...product, qty: 1 },
       };
     });
+    setIsCartOpen(true);
   };
 
   const updateQty = (name: string, delta: number) => {
@@ -62,7 +64,7 @@ export default function Home() {
 
   return (
     <main>
-      <Header cartCount={cartCount} />
+      <Header cartCount={cartCount} onToggleCart={() => setIsCartOpen(!isCartOpen)} />
       <CategoryBar
         activeCategory={activeCategory}
         onSelectCategory={handleCategorySelect}
@@ -77,7 +79,12 @@ export default function Home() {
           </div>
         </div>
 
-        <CartSidebar cart={cart} onUpdateQty={updateQty} />
+        <CartSidebar
+          cart={cart}
+          onUpdateQty={updateQty}
+          isOpen={isCartOpen}
+          onClose={() => setIsCartOpen(false)}
+        />
       </div>
     </main>
   );
