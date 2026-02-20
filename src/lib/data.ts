@@ -14,7 +14,19 @@ export const MENU: { [key: string]: Product[] } = {
     special: [
         { name: "Dear Box 16 Pcs", desc: "4 Pcs Crazy Shrimp Roll, 4 Pcs Seared Salmon Roll, 4 Pcs Oman Chips Roll & 4 Pcs California Roll", price: 89, oldPrice: 120, emoji: "🍣", tag: "Popular", imgSrc: "/images/31.png" },
         { name: "Happy Box 16 Pcs", desc: "4 Pcs Eel Dragon Roll, 4 Pcs Spicy Tuna Dragon Roll, 4 Pcs Arigato Roll & 4 Pcs Salmon Nigiri", price: 99, oldPrice: 130, emoji: "🍱", tag: "Hot Deal", imgSrc: "/images/32.png" },
-        { name: "Mini Salmon Lover 12 Pcs", desc: "4 Pcs Salmon Nigiri, 4 Pcs Salmon Sashimi & 4 Pcs Salmon Hoso Maki", price: 99, emoji: "🐟", tag: "Value", imgSrc: "/images/33.png" }
+        { name: "Mini Salmon Lover 12 Pcs", desc: "4 Pcs Salmon Nigiri, 4 Pcs Salmon Sashimi & 4 Pcs Salmon Hoso Maki", price: 99, emoji: "🐟", tag: "Value", imgSrc: "/images/33.png" },
+        { name: "Tuna Maki 8 Pcs", desc: "Classic tuna hosomaki roll", price: 39, emoji: "🍣", imgSrc: "/images/special-01.png" },
+        { name: "Salmon Avocado Roll 8 Pcs", desc: "Inside-out roll with salmon & avocado", price: 49, emoji: "🍣", imgSrc: "/images/special-02.png" },
+        { name: "Mango Veggie Roll 8 Pcs", desc: "Avocado, lettuce & mango topped with sesame", price: 39, emoji: "🥑", tag: "Vegan", imgSrc: "/images/special-03.png" },
+        { name: "Party Platter 64 Pcs", desc: "Chef’s choice of mixed classic & signature rolls", price: 259, emoji: "🍱", tag: "Sharing", imgSrc: "/images/special-04.png" },
+        { name: "California Salmon Roll 8 Pcs", desc: "California style roll with salmon & crab", price: 49, emoji: "🍣", imgSrc: "/images/special-05.png" },
+        { name: "Rainbow Dream Roll 8 Pcs", desc: "Layered salmon, tuna & avocado over California roll", price: 59, emoji: "🌈", tag: "Chef Special", imgSrc: "/images/special-06.png" },
+        { name: "Mango Dragon Roll 8 Pcs", desc: "Crispy shrimp, mango & avocado with spicy mayo", price: 59, emoji: "🐉", imgSrc: "/images/special-07.png" },
+        { name: "Flaming Shrimp Roll 8 Pcs", desc: "Seared shrimp roll with spicy mayo drizzle", price: 59, emoji: "🔥", imgSrc: "/images/special-08.png" },
+        { name: "Green Dragon Roll 8 Pcs", desc: "Tempura prawn roll topped with avocado & chili", price: 59, emoji: "🐉", imgSrc: "/images/special-09.png" },
+        { name: "Crispy Tobiko Roll 8 Pcs", desc: "Crab & avocado roll topped with tobiko & mayo", price: 59, emoji: "🍣", imgSrc: "/images/special-10.png" },
+        { name: "Crunchy Volcano Roll 8 Pcs", desc: "Crispy coated roll with salmon & avocado", price: 59, emoji: "🌋", tag: "Spicy", imgSrc: "/images/special-11.png" },
+        { name: "Mixed Sushi Taster 18 Pcs", desc: "Selection of maki, nigiri & sashimi from the chef", price: 179, emoji: "🍣", imgSrc: "/images/34.png" },
     ],
     lovers: [
         { name: "Dear Box 16 Pcs", desc: "4 Pcs Crazy Shrimp Roll, 4 Pcs Seared Salmon Roll, 4 Pcs Oman Chips Roll & 4 Pcs California Roll", price: 89, emoji: "🍣", imgSrc: "/images/31.png" },
@@ -58,6 +70,16 @@ export const MENU: { [key: string]: Product[] } = {
         { name: "California Temaki", desc: "Crab, avocado & cucumber hand roll", price: 29, emoji: "🥢", imgSrc: "/images/20.png" },
         { name: "Unagi Temaki", desc: "Grilled eel hand roll with sweet sauce", price: 39, emoji: "🥢", imgSrc: "/images/8.png" },
         { name: "Shrimp Avocado Temaki", desc: "Shrimp & creamy avocado hand roll", price: 39, emoji: "🥢", imgSrc: "/images/47.png" },
+    ],
+    sashimi: [
+        { name: "Salmon Sashimi 5 Pcs", desc: "Slices of fresh salmon sashimi", price: 49, emoji: "🐟", imgSrc: "/images/33.png" },
+        { name: "Tuna Sashimi 5 Pcs", desc: "Slices of premium tuna sashimi", price: 49, emoji: "🐟", imgSrc: "/images/39.png" },
+        { name: "Sashimi Moriwase 18 Pcs", desc: "Chef selection of mixed sashimi", price: 179, emoji: "🍣", imgSrc: "/images/34.png" },
+    ],
+    nigiri: [
+        { name: "Salmon Nigiri 5 Pcs", desc: "Hand-formed sushi with salmon", price: 49, emoji: "🍣", imgSrc: "/images/41.png" },
+        { name: "Tuna Nigiri 5 Pcs", desc: "Hand-formed sushi with tuna", price: 49, emoji: "🍣", imgSrc: "/images/42.png" },
+        { name: "Unagi Nigiri 5 Pcs", desc: "Grilled eel nigiri with sauce", price: 59, emoji: "🍣", imgSrc: "/images/46.png" },
     ]
 };
 
@@ -69,4 +91,6 @@ export const CATEGORIES = [
     { id: 'vip', name: 'VIP Moriwase', icon: '👑' },
     { id: 'maki', name: 'Hoso Maki', icon: '🌿' },
     { id: 'temaki', name: 'Temaki', icon: '🥢' },
+    { id: 'sashimi', name: 'Sashimi', icon: '🍣' },
+    { id: 'nigiri', name: 'Nigiri', icon: '🍣' },
 ];

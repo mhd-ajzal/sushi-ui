@@ -20,6 +20,8 @@ const translations: Translations = {
     'category.vip': 'VIP Moriwase',
     'category.maki': 'Hoso Maki',
     'category.temaki': 'Temaki Handroll Sushi',
+    'category.sashimi': 'Sashimi',
+    'category.nigiri': 'Nigiri',
 
     // Section titles
     'categoryTitle.special': 'Special Offers',
@@ -29,6 +31,8 @@ const translations: Translations = {
     'categoryTitle.vip': 'Fusion VIP Moriwase',
     'categoryTitle.maki': 'Hoso Maki',
     'categoryTitle.temaki': 'Temaki Handroll Sushi',
+    'categoryTitle.sashimi': 'Sashimi & Sashimi Sets',
+    'categoryTitle.nigiri': 'Nigiri Selection',
 
     // Cart
     'cart.title': 'Your Order',
@@ -71,6 +75,8 @@ const translations: Translations = {
     'category.vip': 'في آي بي موريواسي',
     'category.maki': 'هوسو ماكي',
     'category.temaki': 'تيمّاكي سوشي',
+    'category.sashimi': 'ساشيمي',
+    'category.nigiri': 'نيجيري',
 
     // Section titles
     'categoryTitle.special': 'العروض الخاصة',
@@ -80,6 +86,8 @@ const translations: Translations = {
     'categoryTitle.vip': 'في آي بي موريواسي',
     'categoryTitle.maki': 'هوسو ماكي',
     'categoryTitle.temaki': 'تيمّاكي هاند رول',
+    'categoryTitle.sashimi': 'ساشيمي وتشكيلة الساشيمي',
+    'categoryTitle.nigiri': 'تشكيلة النيجيري',
 
     // Cart
     'cart.title': 'طلبك',
