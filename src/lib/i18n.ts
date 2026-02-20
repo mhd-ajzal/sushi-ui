@@ -22,6 +22,12 @@ const translations: Translations = {
     'category.temaki': 'Temaki Handroll Sushi',
     'category.sashimi': 'Sashimi',
     'category.nigiri': 'Nigiri',
+    'category.starters': 'Starters',
+    'category.noodles': 'Noodles',
+    'category.beverages': 'Beverages',
+    'category.poke': 'Poke Bowl',
+    'category.salad': 'Salad',
+    'category.curry': 'Curry & Fried Rice',
 
     // Section titles
     'categoryTitle.special': 'Special Offers',
@@ -33,6 +39,12 @@ const translations: Translations = {
     'categoryTitle.temaki': 'Temaki Handroll Sushi',
     'categoryTitle.sashimi': 'Sashimi & Sashimi Sets',
     'categoryTitle.nigiri': 'Nigiri Selection',
+    'categoryTitle.starters': 'Starters & Soup',
+    'categoryTitle.noodles': 'Noodles',
+    'categoryTitle.beverages': 'Beverages',
+    'categoryTitle.poke': 'Poke Bowl',
+    'categoryTitle.salad': 'Salad',
+    'categoryTitle.curry': 'Japanese Curry & Fried Rice',
 
     // Cart
     'cart.title': 'Your Order',
@@ -77,6 +89,12 @@ const translations: Translations = {
     'category.temaki': 'تيمّاكي سوشي',
     'category.sashimi': 'ساشيمي',
     'category.nigiri': 'نيجيري',
+    'category.starters': 'المقبلات',
+    'category.noodles': 'النودلز',
+    'category.beverages': 'المشروبات',
+    'category.poke': 'بول بوكي',
+    'category.salad': 'السلطات',
+    'category.curry': 'الكاري والأرز المقلي',
 
     // Section titles
     'categoryTitle.special': 'العروض الخاصة',
@@ -88,6 +106,12 @@ const translations: Translations = {
     'categoryTitle.temaki': 'تيمّاكي هاند رول',
     'categoryTitle.sashimi': 'ساشيمي وتشكيلة الساشيمي',
     'categoryTitle.nigiri': 'تشكيلة النيجيري',
+    'categoryTitle.starters': 'المقبلات والحساء',
+    'categoryTitle.noodles': 'النودلز',
+    'categoryTitle.beverages': 'المشروبات',
+    'categoryTitle.poke': 'بول بوكي',
+    'categoryTitle.salad': 'السلطات',
+    'categoryTitle.curry': 'الكاري الياباني والأرز المقلي',
 
     // Cart
     'cart.title': 'طلبك',
