@@ -2,6 +2,7 @@
 
 import { useState } from 'react';
 import Header from '@/components/Header';
+import Banner from '@/components/Banner';
 import CategoryBar from '@/components/CategoryBar';
 import ProductCard from '@/components/ProductCard';
 import CartSidebar, { CartItem } from '@/components/CartSidebar';
@@ -82,6 +83,7 @@ export default function Home() {
           }
           t={t}
         />
+        <Banner />
         <CategoryBar
           activeCategory={activeCategory}
           onSelectCategory={handleCategorySelect}
