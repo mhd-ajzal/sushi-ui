@@ -1,0 +1,965 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Sushi Fusion – Order Online</title>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap"
+        rel="stylesheet" />
+    <style>
+        *,
+        *::before,
+        *::after {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0
+        }
+
+        :root {
+            --o: #FF6A0C;
+            --od: #e55a00;
+            --w: #fff;
+            --bg: #f2f2f2;
+            --d: #1c1c1c;
+            --g: #666;
+            --lg: #999;
+            --b: #e8e8e8;
+            --rb: 10px
+        }
+
+        body {
+            font-family: 'Inter', sans-serif;
+            background: var(--bg);
+            color: var(--d);
+            min-height: 100vh
+        }
+
+        /* ─── TOP NAV ─── */
+        .topbar {
+            position: sticky;
+            top: 0;
+            z-index: 200;
+            background: var(--w);
+            border-bottom: 1px solid var(--b);
+            padding: 0 20px;
+            height: 64px;
+            display: flex;
+            align-items: center;
+            gap: 16px;
+            box-shadow: 0 1px 6px rgba(0, 0, 0, .07)
+        }
+
+        .hamburger {
+            width: 34px;
+            height: 34px;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            gap: 5px;
+            cursor: pointer;
+            flex-shrink: 0
+        }
+
+        .hamburger span {
+            display: block;
+            height: 2px;
+            background: var(--d);
+            border-radius: 2px
+        }
+
+        .hamburger:hover span {
+            background: var(--o)
+        }
+
+        .logo-wrap {
+            flex-shrink: 0;
+            width: 46px;
+            height: 46px
+        }
+
+        .logo-wrap svg {
+            width: 46px;
+            height: 46px
+        }
+
+        .mode-tabs {
+            display: flex;
+            gap: 3px;
+            background: #f5f5f5;
+            border-radius: 100px;
+            padding: 4px;
+            flex-shrink: 0
+        }
+
+        .mode-tab {
+            display: flex;
+            align-items: center;
+            gap: 5px;
+            padding: 8px 14px;
+            border: none;
+            background: transparent;
+            font-size: 13px;
+            font-weight: 600;
+            color: var(--g);
+            cursor: pointer;
+            border-radius: 100px;
+            transition: all .2s;
+            white-space: nowrap;
+            font-family: 'Inter', sans-serif
+        }
+
+        .mode-tab.active {
+            background: var(--w);
+            color: var(--o);
+            box-shadow: 0 1px 4px rgba(0, 0, 0, .12)
+        }
+
+        .location-btn {
+            display: flex;
+            align-items: center;
+            gap: 6px;
+            padding: 8px 14px;
+            border: 1.5px solid var(--b);
+            border-radius: 8px;
+            background: transparent;
+            font-size: 13px;
+            font-weight: 600;
+            color: var(--d);
+            cursor: pointer;
+            transition: border-color .2s;
+            white-space: nowrap;
+            flex-shrink: 0;
+            font-family: 'Inter', sans-serif
+        }
+
+        .location-btn:hover {
+            border-color: var(--o);
+            color: var(--o)
+        }
+
+        .topbar-spacer {
+            flex: 1
+        }
+
+        .search-wrap {
+            position: relative;
+            flex-shrink: 0
+        }
+
+        .search-wrap input {
+            padding: 9px 38px 9px 14px;
+            border: 1.5px solid var(--b);
+            border-radius: 8px;
+            font-size: 13px;
+            width: 180px;
+            outline: none;
+            transition: border-color .2s;
+            font-family: 'Inter', sans-serif
+        }
+
+        .search-wrap input:focus {
+            border-color: var(--o)
+        }
+
+        .search-wrap .si {
+            position: absolute;
+            right: 11px;
+            top: 50%;
+            transform: translateY(-50%);
+            color: var(--g);
+            font-size: 15px
+        }
+
+        .cart-btn {
+            position: relative;
+            width: 40px;
+            height: 40px;
+            border: none;
+            background: transparent;
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 20px;
+            flex-shrink: 0
+        }
+
+        .cart-badge {
+            position: absolute;
+            top: 2px;
+            right: 2px;
+            width: 18px;
+            height: 18px;
+            background: var(--o);
+            border-radius: 50%;
+            font-size: 10px;
+            font-weight: 800;
+            color: var(--w);
+            display: flex;
+            align-items: center;
+            justify-content: center
+        }
+
+        .lang-btn {
+            padding: 7px 14px;
+            border: 1.5px solid var(--b);
+            border-radius: 100px;
+            background: transparent;
+            font-size: 13px;
+            font-weight: 600;
+            cursor: pointer;
+            color: var(--d);
+            transition: all .2s;
+            flex-shrink: 0;
+            font-family: 'Inter', sans-serif
+        }
+
+        .login-btn {
+            padding: 9px 20px;
+            background: var(--o);
+            color: var(--w);
+            border: none;
+            border-radius: 100px;
+            font-size: 14px;
+            font-weight: 700;
+            cursor: pointer;
+            transition: background .2s;
+            flex-shrink: 0;
+            font-family: 'Inter', sans-serif
+        }
+
+        .login-btn:hover {
+            background: var(--od)
+        }
+
+        /* ─── CATEGORY BAR ─── */
+        .catbar {
+            background: var(--w);
+            border-bottom: 1px solid var(--b);
+            position: sticky;
+            top: 64px;
+            z-index: 100;
+            overflow-x: auto;
+            -webkit-overflow-scrolling: touch;
+            scrollbar-width: none
+        }
+
+        .catbar::-webkit-scrollbar {
+            height: 0
+        }
+
+        .catbar-inner {
+            display: flex;
+            padding: 0 20px;
+            min-width: max-content
+        }
+
+        .cat-item {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            gap: 5px;
+            padding: 10px 18px;
+            cursor: pointer;
+            border-bottom: 3px solid transparent;
+            transition: all .2s;
+            flex-shrink: 0
+        }
+
+        .cat-item.active {
+            border-bottom-color: var(--o)
+        }
+
+        .cat-img {
+            width: 52px;
+            height: 52px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 28px;
+            border: 2.5px solid var(--b);
+            transition: border-color .2s;
+            object-fit: cover;
+            overflow: hidden
+        }
+
+        .cat-item.active .cat-img,
+        .cat-item:hover .cat-img {
+            border-color: var(--o)
+        }
+
+        .cat-name {
+            font-size: 11px;
+            font-weight: 600;
+            color: var(--g);
+            white-space: nowrap;
+            transition: color .2s
+        }
+
+        .cat-item.active .cat-name {
+            color: var(--o);
+            font-weight: 700
+        }
+
+        /* ─── PAGE BODY ─── */
+        .page-body {
+            display: flex;
+            min-height: calc(100vh - 128px)
+        }
+
+        /* ─── MAIN CONTENT ─── */
+        .main-content {
+            flex: 1;
+            padding: 24px;
+            min-width: 0
+        }
+
+        .section-title {
+            font-size: 22px;
+            font-weight: 800;
+            margin-bottom: 20px
+        }
+
+        .product-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+            gap: 20px
+        }
+
+        /* ─── PRODUCT CARD ─── */
+        .pcard {
+            background: var(--w);
+            border-radius: var(--rb);
+            overflow: hidden;
+            box-shadow: 0 1px 4px rgba(0, 0, 0, .07);
+            transition: box-shadow .25s;
+            cursor: pointer
+        }
+
+        .pcard:hover {
+            box-shadow: 0 6px 24px rgba(0, 0, 0, .12)
+        }
+
+        .pcard-header {
+            padding: 14px 14px 0
+        }
+
+        .pcard-name {
+            font-size: 15px;
+            font-weight: 800;
+            margin-bottom: 3px
+        }
+
+        .pcard-desc {
+            font-size: 12px;
+            color: var(--g);
+            line-height: 1.45;
+            min-height: 34px
+        }
+
+        .pcard-img-wrap {
+            position: relative;
+            margin: 10px 0 0
+        }
+
+        .pcard-img {
+            width: 100%;
+            height: 190px;
+            background: #fff5ef;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            overflow: hidden;
+            position: relative
+        }
+
+        .pcard-img img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            display: block
+        }
+
+        .pcard-img .emoji-fallback {
+            font-size: 90px
+        }
+
+        .pcard-wish {
+            position: absolute;
+            top: 10px;
+            right: 10px;
+            width: 30px;
+            height: 30px;
+            background: rgba(255, 255, 255, .9);
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 14px;
+            cursor: pointer;
+            border: none;
+            box-shadow: 0 1px 4px rgba(0, 0, 0, .12);
+            transition: all .2s
+        }
+
+        .pcard-wish:hover {
+            background: var(--o);
+            color: var(--w)
+        }
+
+        .pcard-price-tag {
+            position: absolute;
+            bottom: 10px;
+            left: 10px;
+            background: rgba(28, 28, 28, .75);
+            color: #fff;
+            font-size: 12px;
+            font-weight: 700;
+            padding: 4px 10px;
+            border-radius: 100px
+        }
+
+        .pcard-customize {
+            position: absolute;
+            bottom: 10px;
+            left: 50%;
+            transform: translateX(-50%);
+            background: rgba(255, 255, 255, .94);
+            border: 1.5px solid var(--o);
+            color: var(--o);
+            font-size: 12px;
+            font-weight: 700;
+            padding: 6px 14px;
+            border-radius: 100px;
+            display: flex;
+            align-items: center;
+            gap: 5px;
+            cursor: pointer;
+            transition: all .2s;
+            white-space: nowrap
+        }
+
+        .pcard-customize:hover {
+            background: var(--o);
+            color: #fff
+        }
+
+        .pcard-bottom {
+            padding: 12px 14px;
+            display: flex;
+            align-items: center;
+            justify-content: space-between
+        }
+
+        .pcard-old {
+            font-size: 11px;
+            color: var(--lg);
+            text-decoration: line-through;
+            margin-bottom: 1px
+        }
+
+        .pcard-price {
+            font-size: 18px;
+            font-weight: 800
+        }
+
+        .add-simple {
+            height: 36px;
+            padding: 0 20px;
+            background: transparent;
+            border: 1.5px solid var(--o);
+            border-radius: 6px;
+            color: var(--o);
+            font-size: 14px;
+            font-weight: 700;
+            cursor: pointer;
+            font-family: 'Inter', sans-serif;
+            transition: all .2s
+        }
+
+        .add-simple:hover {
+            background: var(--o);
+            color: #fff
+        }
+
+        .added-btn {
+            height: 36px;
+            padding: 0 20px;
+            background: var(--o);
+            border: none;
+            border-radius: 6px;
+            color: #fff;
+            font-size: 14px;
+            font-weight: 700;
+            font-family: 'Inter', sans-serif
+        }
+
+        /* VIP badge */
+        .vip-badge {
+            position: absolute;
+            top: 10px;
+            left: 10px;
+            background: linear-gradient(135deg, #FFD700, #FFA500);
+            color: #1c1c1c;
+            font-size: 10px;
+            font-weight: 800;
+            padding: 4px 10px;
+            border-radius: 100px;
+            letter-spacing: .5px
+        }
+
+        /* ─── CART SIDEBAR ─── */
+        .cart-sidebar {
+            width: 300px;
+            flex-shrink: 0;
+            padding: 20px;
+            position: sticky;
+            top: 128px;
+            height: calc(100vh - 128px);
+            overflow-y: auto;
+            background: var(--w);
+            border-left: 1px solid var(--b)
+        }
+
+        .cart-sidebar::-webkit-scrollbar {
+            width: 4px
+        }
+
+        .cart-sidebar::-webkit-scrollbar-thumb {
+            background: var(--b);
+            border-radius: 2px
+        }
+
+        .cart-empty {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            height: 100%;
+            text-align: center;
+            padding: 20px
+        }
+
+        .cart-empty-icon {
+            font-size: 80px;
+            margin-bottom: 20px;
+            opacity: .7
+        }
+
+        .cart-empty h3 {
+            font-size: 17px;
+            font-weight: 800;
+            margin-bottom: 6px
+        }
+
+        .cart-empty p {
+            font-size: 13px;
+            color: var(--g);
+            line-height: 1.5
+        }
+
+        .cart-has-items {
+            display: flex;
+            flex-direction: column;
+            height: 100%
+        }
+
+        .cart-title {
+            font-size: 15px;
+            font-weight: 800;
+            margin-bottom: 14px;
+            padding-bottom: 10px;
+            border-bottom: 1px solid var(--b)
+        }
+
+        .cart-items {
+            flex: 1;
+            overflow-y: auto;
+            display: flex;
+            flex-direction: column;
+            gap: 10px;
+            margin-bottom: 14px
+        }
+
+        .cart-item {
+            display: flex;
+            gap: 10px;
+            padding: 10px;
+            border: 1px solid var(--b);
+            border-radius: 8px
+        }
+
+        .cart-item-emoji {
+            font-size: 30px;
+            width: 48px;
+            height: 48px;
+            background: #fff5ef;
+            border-radius: 8px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            flex-shrink: 0
+        }
+
+        .cart-item-name {
+            font-size: 12px;
+            font-weight: 700;
+            margin-bottom: 3px
+        }
+
+        .cart-item-price {
+            font-size: 13px;
+            font-weight: 800;
+            color: var(--o)
+        }
+
+        .cart-item-qty {
+            display: flex;
+            align-items: center;
+            gap: 6px;
+            margin-top: 5px
+        }
+
+        .qty-btn {
+            width: 22px;
+            height: 22px;
+            border: 1px solid var(--b);
+            border-radius: 4px;
+            background: transparent;
+            cursor: pointer;
+            font-size: 14px;
+            font-weight: 700;
+            color: var(--d);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-family: 'Inter', sans-serif
+        }
+
+        .qty-btn:hover {
+            border-color: var(--o);
+            color: var(--o)
+        }
+
+        .qty-num {
+            font-size: 13px;
+            font-weight: 700;
+            min-width: 16px;
+            text-align: center
+        }
+
+        .cart-summary {
+            border-top: 1px solid var(--b);
+            padding-top: 14px
+        }
+
+        .cart-row {
+            display: flex;
+            justify-content: space-between;
+            font-size: 13px;
+            margin-bottom: 6px;
+            color: var(--g)
+        }
+
+        .cart-row.total {
+            font-size: 15px;
+            font-weight: 800;
+            color: var(--d);
+            margin-top: 4px;
+            padding-top: 8px;
+            border-top: 1px solid var(--b)
+        }
+
+        .checkout-btn {
+            width: 100%;
+            padding: 13px;
+            background: var(--o);
+            color: #fff;
+            border: none;
+            border-radius: 8px;
+            font-size: 14px;
+            font-weight: 800;
+            cursor: pointer;
+            margin-top: 14px;
+            font-family: 'Inter', sans-serif;
+            transition: background .2s
+        }
+
+        .checkout-btn:hover {
+            background: var(--od)
+        }
+
+        @media(max-width:900px) {
+            .cart-sidebar {
+                display: none
+            }
+        }
+
+        @media(max-width:700px) {
+            .product-grid {
+                grid-template-columns: 1fr
+            }
+
+            .mode-tabs {
+                display: none
+            }
+        }
+    </style>
+</head>
+
+<body>
+
+    <!-- TOP NAVBAR -->
+    <header class="topbar">
+        <div class="hamburger"><span></span><span></span><span></span></div>
+
+        <!-- Sushi Fusion Circular Badge Logo -->
+        <div class="logo-wrap">
+            <svg viewBox="0 0 100 100" xmlns="http://www.w3.org/2000/svg">
+                <circle cx="50" cy="50" r="48" fill="#FF6A0C" />
+                <circle cx="50" cy="50" r="48" fill="none" stroke="white" stroke-width="2.5" />
+                <circle cx="50" cy="50" r="38" fill="white" />
+                <circle cx="50" cy="50" r="38" fill="none" stroke="#FF6A0C" stroke-width="2" />
+                <circle cx="50" cy="50" r="30" fill="none" stroke="#FF6A0C" stroke-width="1.5" />
+                <ellipse cx="43" cy="52" rx="11" ry="7" fill="#FF6A0C" />
+                <ellipse cx="43" cy="49" rx="11" ry="7" fill="#FF6A0C" />
+                <ellipse cx="43" cy="49" rx="7.5" ry="4.5" fill="white" />
+                <ellipse cx="43" cy="48" rx="4.5" ry="3" fill="#FF6A0C" />
+                <ellipse cx="57" cy="54" rx="10" ry="6" fill="white" stroke="#FF6A0C" stroke-width="1.5" />
+                <path d="M49,53 Q54,48 65,51" stroke="#FF6A0C" stroke-width="1" fill="none" stroke-dasharray="2,1.5" />
+                <path id="ta" d="M 16,50 A 34,34 0 0,1 84,50" fill="none" />
+                <text font-family="Arial,sans-serif" font-weight="800" font-size="8.5" fill="white"
+                    letter-spacing="2.8">
+                    <textPath href="#ta" startOffset="7%">SUSHI FUSION</textPath>
+                </text>
+                <path id="ba" d="M 16,50 A 34,34 0 0,0 84,50" fill="none" />
+                <text font-family="Arial,sans-serif" font-weight="800" font-size="8.5" fill="#FF6A0C"
+                    letter-spacing="2.8">
+                    <textPath href="#ba" startOffset="7%">SUSHI FUSION</textPath>
+                </text>
+            </svg>
+        </div>
+
+        <div class="mode-tabs">
+            <button class="mode-tab active" onclick="setMode(this)">🏠 Delivery</button>
+            <button class="mode-tab" onclick="setMode(this)">🛍️ Pickup</button>
+            <button class="mode-tab" onclick="setMode(this)">🍽️ Dine-In</button>
+        </div>
+
+        <button class="location-btn">📍 Select Location →</button>
+        <div class="topbar-spacer"></div>
+
+        <div class="search-wrap">
+            <input type="text" placeholder="Search menu..." />
+            <span class="si">🔍</span>
+        </div>
+
+        <button class="cart-btn">🛒<span class="cart-badge" id="cart-count">0</span></button>
+        <button class="lang-btn">عربي</button>
+        <button class="login-btn">LOGIN</button>
+    </header>
+
+    <!-- CATEGORY BAR -->
+    <div class="catbar">
+        <div class="catbar-inner">
+            <div class="cat-item active" onclick="showCat(this,'special')">
+                <div class="cat-img">🌟</div><span class="cat-name">Special Offers</span>
+            </div>
+            <div class="cat-item" onclick="showCat(this,'lovers')">
+                <div class="cat-img">🍣</div><span class="cat-name">Lovers Box</span>
+            </div>
+            <div class="cat-item" onclick="showCat(this,'sakura')">
+                <div class="cat-img">🌸</div><span class="cat-name">Sakura Combos</span>
+            </div>
+            <div class="cat-item" onclick="showCat(this,'cooked')">
+                <div class="cat-img">🔥</div><span class="cat-name">Cooked Box</span>
+            </div>
+            <div class="cat-item" onclick="showCat(this,'vip')">
+                <div class="cat-img">👑</div><span class="cat-name">VIP Moriwase</span>
+            </div>
+            <div class="cat-item" onclick="showCat(this,'maki')">
+                <div class="cat-img">🌿</div><span class="cat-name">Hoso Maki</span>
+            </div>
+            <div class="cat-item" onclick="showCat(this,'temaki')">
+                <div class="cat-img">🥢</div><span class="cat-name">Temaki</span>
+            </div>
+        </div>
+    </div>
+
+    <!-- PAGE BODY -->
+    <div class="page-body">
+        <div class="main-content">
+
+            <h2 class="section-title" id="sec-title">Special Offers</h2>
+            <div class="product-grid" id="product-grid">
+                <!-- Cards injected by JS -->
+            </div>
+
+        </div>
+
+        <!-- CART SIDEBAR -->
+        <div class="cart-sidebar">
+            <div class="cart-empty" id="cart-empty">
+                <div class="cart-empty-icon">🛒</div>
+                <h3>Your Cart is Empty</h3>
+                <p>Please add some items from the menu.</p>
+            </div>
+            <div class="cart-has-items" id="cart-full" style="display:none">
+                <div class="cart-title">🛒 Your Order</div>
+                <div class="cart-items" id="cart-items-list"></div>
+                <div class="cart-summary">
+                    <div class="cart-row"><span>Subtotal</span><span id="cart-subtotal">AED 0</span></div>
+                    <div class="cart-row"><span>Delivery</span><span style="color:#22c55e;font-weight:600">FREE</span>
+                    </div>
+                    <div class="cart-row total"><span>Total</span><span id="cart-total" style="color:var(--o)">AED
+                            0</span></div>
+                    <button class="checkout-btn">Proceed to Checkout →</button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        // ─── MENU DATA ───
+        const MENU = {
+            special: [
+                { name: "Dear Box 16 Pcs", desc: "4 Pcs Crazy Shrimp Roll, 4 Pcs Seared Salmon Roll, 4 Pcs Oman Chips Roll & 4 Pcs California Roll", price: 89, oldPrice: 120, emoji: "🍣", tag: "Popular" },
+                { name: "Happy Box 16 Pcs", desc: "4 Pcs Eel Dragon Roll, 4 Pcs Spicy Tuna Dragon Roll, 4 Pcs Arigato Roll & 4 Pcs Salmon Nigiri", price: 99, oldPrice: 130, emoji: "🍱", tag: "Hot Deal" },
+                { name: "Mini Salmon Lover 12 Pcs", desc: "4 Pcs Salmon Nigiri, 4 Pcs Salmon Sashimi & 4 Pcs Salmon Hoso Maki", price: 99, emoji: "🐟", tag: "Value" }
+            ],
+            lovers: [
+                { name: "Dear Box 16 Pcs", desc: "4 Pcs Crazy Shrimp Roll, 4 Pcs Seared Salmon Roll, 4 Pcs Oman Chips Roll & 4 Pcs California Roll", price: 89, emoji: "🍣" },
+                { name: "Happy Box 16 Pcs", desc: "4 Pcs Eel Dragon Roll, 4 Pcs Spicy Tuna Dragon Roll, 4 Pcs Arigato Roll & 4 Pcs Salmon Nigiri", price: 99, emoji: "🍣" },
+                { name: "Mini Salmon Lover 12 Pcs", desc: "4 Pcs Salmon Nigiri, 4 Pcs Salmon Sashimi & 4 Pcs Salmon Hoso Maki", price: 99, emoji: "🐟" },
+                { name: "Raw Mixed Platter 24 Pcs", desc: "8 Pcs New Phila Roll, 4 Pcs Tiger Phila Roll, 4 Pcs California Salmon Dream Roll, 4 Pcs Salmon Nigiri, 2 Pcs Tuna Nigiri & 2 Pcs Ebi Nigiri", price: 139, emoji: "🍱" },
+                { name: "Super Salmon Lover Box 24 Pcs", desc: "4 Pcs Philadelphia Roll, 4 Pcs Salmon Nigiri, 4 Pcs Volcano Roll, 4 Pcs Flaming Star Salmon Roll, 4 Pcs Cooked Salmon Roll & 4 Pcs Spring Salmon Roll", price: 149, emoji: "🍣" },
+                { name: "Shrimp Lover Box 24 Pcs", desc: "8 Pcs King Salmon Shrimp Roll, 8 Pcs Crazy Shrimp Roll & 8 Pcs Shrimp Hoso Maki", price: 129, emoji: "🦐" },
+                { name: "Crab Lover Box 28 Pcs", desc: "4 Pcs California Roll, 4 Pcs Black Cali Roll, 4 Pcs Arigato Roll, 4 Pcs Crunchy Crab Roll, 4 Pcs Kani Nigiri & 8 Pcs Kanikama Hosomaki", price: 149, emoji: "🦀" },
+                { name: "Vibrant Vegetable Box 28 Pcs", desc: "8 Pcs Yasai Roll, 8 Pcs Veg Futo Roll, 8 Pcs Avocado Maki & 4 Pcs Beetroot Roll", price: 99, emoji: "🥑", tag: "Vegan" },
+                { name: "Matsu Sashimi & Nigiri 18 Pcs", desc: "3 Pcs Salmon Sashimi, 3 Pcs Salmon Belly Sashimi, 3 Pcs Tuna Sashimi, 3 Pcs Salmon Nigiri, 3 Pcs Ebi Nigiri & 3 Pcs Kani Nigiri", price: 189, emoji: "🍱" },
+                { name: "Royal Salmon Lover Box 32 Pcs", desc: "8 Pcs Salmon Nigiri, 8 Pcs Salmon Philadelphia Roll, 4 Pcs Salmon Belly Nigiri, 4 Pcs Salmon Volcano Roll, 4 Pcs Cooked Salmon Roll & 4 Pcs Salmon Nisoku", price: 199, emoji: "🍣" },
+            ],
+            sakura: [
+                { name: "Wow Classico Box A 20 Pcs", desc: "4 Pcs Salmon Dream Roll, 4 Pcs Shrimp Dynamite Roll, 4 Pcs Crazy Crab Roll, 4 Pcs Crab Philly Roll & 4 Pcs Salmo Hoso Maki", price: 109, emoji: "🌸" },
+                { name: "Wow Classico Box B 12 Pcs", desc: "4 Pcs Seared Salmon Roll, 4 Pcs Spicy Seared Salmon Roll & 4 Pcs Golden Garden Roll", price: 79, emoji: "🍣" },
+                { name: "Wow Classico Box C 12 Pcs", desc: "4 Pcs Dragon Roll, 4 Pcs Crab Philly Roll & 4 Pcs Kanikama Hoso Maki", price: 69, emoji: "🍱" },
+                { name: "Philla Dream Box 24 Pcs", desc: "8 Pcs Philadelphia Salmon Roll, 8 Pcs Crab Philly Roll, 4 Pcs Tiger Phila Roll & 4 Pcs Unagi Salmon Cream Salmon", price: 179, emoji: "🌸" },
+            ],
+            cooked: [
+                { name: "Fire & Sea Box A 16 Pcs", desc: "4 Pcs Eel Dragon Roll, 4 Pcs Dragon Roll, 4 Pcs Crazy Shrimp & 4 Pcs Veg Creamy Roll", price: 99, emoji: "🔥" },
+                { name: "Fire & Sea Box B 24 Pcs", desc: "8 Pcs Dynamite Roll, 4 Pcs Seared Salmon Roll, 4 Pcs Crazy Crab Roll, 4 Pcs Cooked Salmon Roll & 4 Pcs Dragon Roll", price: 149, emoji: "🔥" },
+                { name: "Cooked Box 20 Pcs", desc: "4 Pcs Dragon Roll, 4 Pcs Dynamite Shrimp Roll, 4 Pcs Oman Crispy Roll, 4 Pcs Crazy Crab Roll & 4 Pcs Crab Dragon Roll", price: 129, emoji: "🍱" },
+                { name: "Fire & Sea Box C 32 Pcs", desc: "4 Pcs Cooked Salmon Nigiri, 4 Pcs Mango Crab Roll, 4 Pcs Eel Dragon Roll, 4 Pcs Rosie Roll, 4 Pcs Cooked Salmon Roll, 4 Pcs Arigato Roll, 4 Pcs Cooked Futo Roll & 4 Pcs Crazy Shrimp Roll", price: 219, emoji: "🔥", tag: "Best Value" },
+            ],
+            vip: [
+                { name: "Fusion VIP Moriwase 24 Pcs", desc: "4 Pcs Unagi Dragon Roll, 4 Pcs Salmon Philadelphia Roll, 4 Pcs Crazy Crab Roll, 4 Pcs Cooked Salmon Roll, 4 Pcs Salmon Sashimi, 2 Pcs Tuna Nigiri & 2 Pcs Ebi Nigiri", price: 149, emoji: "👑", tag: "VIP" },
+                { name: "Fusion VIP Moriwase 32 Pcs", desc: "4 Pcs Salmon Nigiri, 4 Pcs Salmon Philadelphia Roll, 4 Pcs Mango Crab Roll, 4 Pcs Crazy Shrimp Roll, 4 Pcs Rosie Roll, 4 Pcs Unagi Dragon Roll, 4 Pcs Yasai Roll & 4 Pcs Tuna Maki", price: 199, emoji: "👑", tag: "VIP" },
+                { name: "Fusion VIP Moriwase 60 Pcs", desc: "8 Pcs Unagi Dragon Roll, 8 Pcs Salmon Philadelphia Roll, 8 Pcs Crazy Shrimp Roll, 8 Pcs Crazy Crab Roll, 4 Pcs Dragon Roll, 4 Pcs California Roll, 4 Pcs Oman Crunchy Roll, 4 Pcs Avocado Hosomaki, 3 Pcs Salmon Sashimi, 3 Pcs Tuna Sashimi, 3 Pcs Salmon Nigiri & 3 Pcs Tuna Nigiri", price: 369, emoji: "🏆", tag: "Premium" },
+            ],
+            maki: [
+                { name: "Sake Maki", desc: "Classic salmon hoso maki roll", price: 29, emoji: "🍣" },
+                { name: "Tuna Maki", desc: "Fresh tuna hoso maki roll", price: 29, emoji: "🍱" },
+                { name: "Kappa Maki", desc: "Crisp cucumber hoso maki roll", price: 19, emoji: "🥒", tag: "Vegan" },
+                { name: "Mango Maki", desc: "Sweet mango hoso maki roll", price: 19, emoji: "🥭", tag: "Vegan" },
+                { name: "Kanikama Maki", desc: "Crab stick hoso maki roll", price: 19, emoji: "🦀" },
+                { name: "Unagi Maki", desc: "Grilled eel hoso maki roll", price: 29, emoji: "🐍" },
+            ],
+            temaki: [
+                { name: "Sake Temaki", desc: "Fresh salmon hand roll in a crispy nori cone", price: 39, emoji: "🥢" },
+                { name: "California Temaki", desc: "Crab, avocado & cucumber hand roll", price: 29, emoji: "🥢" },
+                { name: "Unagi Temaki", desc: "Grilled eel hand roll with sweet sauce", price: 39, emoji: "🥢" },
+                { name: "Shrimp Avocado Temaki", desc: "Shrimp & creamy avocado hand roll", price: 39, emoji: "🥢" },
+            ]
+        };
+
+        let cart = {}, currentCat = 'special';
+
+        function renderCards(cat) {
+            const grid = document.getElementById('product-grid');
+            grid.innerHTML = MENU[cat].map((item, i) => `
+    <div class="pcard">
+      <div class="pcard-header">
+        <div class="pcard-name">${item.name}</div>
+        <div class="pcard-desc">${item.desc}</div>
+      </div>
+      <div class="pcard-img-wrap">
+        <div class="pcard-img">
+          ${item.imgSrc ? `<img src="${item.imgSrc}" alt="${item.name}"/>` : `<span class="emoji-fallback">${item.emoji}</span>`}
+        </div>
+        <button class="pcard-wish" onclick="event.stopPropagation();this.textContent=this.textContent==='🤍'?'♥️':'🤍'">🤍</button>
+        ${item.tag ? `<div class="pcard-price-tag">${item.tag}</div>` : ''}
+        ${item.vip ? `<div class="vip-badge">VIP</div>` : ''}
+        <button class="pcard-customize">Customize →</button>
+      </div>
+      <div class="pcard-bottom">
+        <div>
+          ${item.oldPrice ? `<div class="pcard-old">AED ${item.oldPrice}</div>` : ''}
+          <div class="pcard-price">AED ${item.price}</div>
+        </div>
+        <button class="add-simple" id="addbtn-${cat}-${i}" onclick="addToCart('${item.name.replace(/'/g, "\\'")}',${item.price},'${item.emoji}',this,'${cat}-${i}')">+ Add</button>
+      </div>
+    </div>`).join('');
+        }
+
+        function showCat(el, cat) {
+            document.querySelectorAll('.cat-item').forEach(c => c.classList.remove('active'));
+            el.classList.add('active');
+            currentCat = cat;
+            const titles = { special: 'Special Offers', lovers: 'Signature & Lovers Box', sakura: 'Sakura Combos', cooked: 'Cooked Box', vip: 'Fusion VIP Moriwase', maki: 'Hoso Maki', temaki: 'Temaki Handroll Sushi' };
+            document.getElementById('sec-title').textContent = titles[cat];
+            renderCards(cat);
+        }
+
+        function setMode(el) {
+            document.querySelectorAll('.mode-tab').forEach(t => t.classList.remove('active'));
+            el.classList.add('active');
+        }
+
+        function addToCart(name, price, emoji, btn, id) {
+            if (!cart[name]) cart[name] = { price, emoji, qty: 0 };
+            cart[name].qty++;
+            updateCartUI();
+            btn.textContent = '✓ Added';
+            btn.className = 'added-btn';
+            setTimeout(() => { btn.textContent = '+ Add'; btn.className = 'add-simple'; }, 1500);
+        }
+
+        function changeQty(name, delta) {
+            if (!cart[name]) return;
+            cart[name].qty = Math.max(0, cart[name].qty + delta);
+            if (cart[name].qty === 0) delete cart[name];
+            updateCartUI();
+        }
+
+        function updateCartUI() {
+            const items = Object.entries(cart).filter(([, v]) => v.qty > 0);
+            const count = items.reduce((a, [, v]) => a + v.qty, 0);
+            const total = items.reduce((a, [, v]) => a + (v.price * v.qty), 0);
+            document.getElementById('cart-count').textContent = count;
+            document.getElementById('cart-empty').style.display = items.length ? 'none' : 'flex';
+            document.getElementById('cart-full').style.display = items.length ? 'flex' : 'none';
+            document.getElementById('cart-items-list').innerHTML = items.map(([name, v]) => `
+    <div class="cart-item">
+      <div class="cart-item-emoji">${v.emoji}</div>
+      <div style="flex:1;min-width:0">
+        <div class="cart-item-name">${name}</div>
+        <div class="cart-item-price">AED ${(v.price * v.qty).toFixed(0)}</div>
+        <div class="cart-item-qty">
+          <button class="qty-btn" onclick="changeQty('${name.replace(/'/g, "\\'")}',−1)">−</button>
+          <span class="qty-num">${v.qty}</span>
+          <button class="qty-btn" onclick="changeQty('${name.replace(/'/g, "\\'")}',1)">+</button>
+        </div>
+      </div>
+    </div>`).join('');
+            document.getElementById('cart-subtotal').textContent = `AED ${total}`;
+            document.getElementById('cart-total').textContent = `AED ${total}`;
+        }
+
+        // Init
+        renderCards('special');
+    </script>
+</body>
+
+</html>
