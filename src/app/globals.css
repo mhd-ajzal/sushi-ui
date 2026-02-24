@@ -115,6 +115,12 @@ body {
   font-family: 'Inter', sans-serif
 }
 
+.mode-icon {
+  width: 18px;
+  height: 18px;
+  object-fit: contain;
+}
+
 .mode-tab.active {
   background: var(--w);
   color: var(--o);

@@ -32,10 +32,10 @@ export default function Header({
     };
 
     const renderModeTabs = (className: string) => {
-        const modes: { key: 'delivery' | 'pickup' | 'dineIn'; icon: string }[] = [
-            { key: 'delivery', icon: '🏠' },
-            { key: 'pickup', icon: '🛍️' },
-            { key: 'dineIn', icon: '🍽️' },
+        const modes: { key: 'delivery' | 'pickup' | 'dineIn'; icon: React.ReactNode }[] = [
+            { key: 'delivery', icon: <img src="/images/delivery-man.png" alt="Delivery" className="mode-icon" /> },
+            { key: 'pickup', icon: <img src="/images/pickup.png" alt="Pickup" className="mode-icon" /> },
+            { key: 'dineIn', icon: <img src="/images/dine in.png" alt="Dine In" className="mode-icon" /> },
         ];
 
         return (
