@@ -67,7 +67,9 @@ export default function Header({
 
             {renderModeTabs('mode-tabs')}
 
-            <button className="location-btn">📍 {t('header.selectLocation')}</button>
+            <button className="location-btn" onClick={() => setShowLocationModal(true)}>
+                📍 {t('header.selectLocation')}
+            </button>
             <div className="topbar-spacer"></div>
 
             <div className="search-wrap">
