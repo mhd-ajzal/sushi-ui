@@ -7,6 +7,7 @@ import CategoryBar from '@/components/CategoryBar';
 import ProductCard from '@/components/ProductCard';
 import CartSidebar, { CartItem } from '@/components/CartSidebar';
 import Footer from '@/components/Footer';
+import CustomerLoginPage from '@/app/login/page';
 import { MENU, Product } from '@/lib/data';
 import { t as translate, type Language } from '@/lib/i18n';
 
@@ -71,6 +72,7 @@ export default function Home() {
 
   return (
     <>
+      <CustomerLoginPage />
       <main>
         <Header
           cartCount={cartCount}

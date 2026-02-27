@@ -1,6 +1,7 @@
 'use client';
 
 import React, { useState } from 'react';
+import Link from 'next/link';
 import LocationModal from './LocationModal';
 import type { Language } from '@/lib/i18n';
 
@@ -25,10 +26,7 @@ export default function Header({
 }: HeaderProps) {
     const [activeMode, setActiveMode] = useState<'delivery' | 'pickup' | 'dineIn'>('delivery');
     const [isPopoverOpen, setIsPopoverOpen] = useState(false);
-
-    // Form state
-    const [city, setCity] = useState('');
-    const [store, setStore] = useState('');
+    const [selectedLocation, setSelectedLocation] = useState<string | null>(null);
 
     const handleModeClick = (mode: 'delivery' | 'pickup' | 'dineIn') => {
         setActiveMode(mode);
@@ -37,7 +35,7 @@ export default function Header({
 
     const handleLocationSubmit = (e: React.FormEvent) => {
         e.preventDefault();
-        console.log('Location Data:', { city, store, mode: t(`header.mode.${activeMode}`) });
+        // Location submitted
         setIsPopoverOpen(false);
     };
 
@@ -80,7 +78,7 @@ export default function Header({
             {renderModeTabs('mode-tabs')}
 
             <button className="location-btn" onClick={() => setIsPopoverOpen(true)}>
-                📍 {t('header.selectLocation')}
+                📍 {selectedLocation || t('header.selectLocation')}
             </button>
 
             <LocationModal
@@ -89,7 +87,12 @@ export default function Header({
                 mode={t(`header.mode.${activeMode}`)}
                 t={t}
                 onProceed={(data) => {
-                    console.log('Location Data:', data);
+                    if (data.mode === 'Delivery') {
+                        setSelectedLocation(data.address || t('header.selectLocation'));
+                    } else if (data.mode === 'Pickup') {
+                        const summary = [data.city, data.store].filter(Boolean).join(' • ');
+                        setSelectedLocation(summary || t('header.selectLocation'));
+                    }
                     setIsPopoverOpen(false);
                 }}
             />
@@ -112,7 +115,7 @@ export default function Header({
             <button className="lang-btn" onClick={onToggleLanguage}>
                 {language === 'en' ? 'عربي' : 'EN'}
             </button>
-            <button className="login-btn">{t('header.login')}</button>
+            <Link href="/login" className="login-btn">{t('header.login')}</Link>
 
             {renderModeTabs('mode-tabs-mobile')}
         </header>
